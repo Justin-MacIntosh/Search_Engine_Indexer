@@ -1,0 +1,17 @@
+#!/bin/bash
+
+rm /etc/init.d/jetty/ROOT.war
+rm ../jetty/webapps/ROOT.war
+
+sudo ant war-master
+sudo cp master.war /usr/share/jetty/webapps/ROOT.war
+rm master.war
+
+sudo ant war-worker
+sudo cp worker.war ../jetty/webapps/ROOT.war
+rm worker.war
+
+sudo /etc/init.d/jetty restart
+
+cd ../jetty
+java -jar start.jar
